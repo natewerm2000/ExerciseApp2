@@ -130,6 +130,9 @@
 
         <article class="message is-black" :class = "{ 'is-hidden': !visible}" :style="`${visible ? '' : 'display:none'}`">
             <div class="message-header" :style="` font-size: 46`" >
+              <div id = "counter">
+                This is a placeholder for stopwatch {{ counter }}
+              </div>
               <p>Primary</p>
               <button class="delete" aria-label="delete"></button>
             </div>
@@ -152,16 +155,18 @@
       <script src="https://unpkg.com/vue@next"></script>
       <script>
 
-        const VM = {
-            data() {
-               return {
-               counter: 1,
-               now: new Date().toLocaleString(),
-               visible: true
-        }
-      },
-      mounted() {
-    setInterval(() => this.now = new Date().toLocaleString(), 1000)
+    const Counter = {
+  data() {
+    return {
+      counter: 0
+    }
+  },
+  mounted() {
+    setInterval(() => {
+      this.counter++
+    }, 1000)
+  
+
   },
   methods: {
     grow(){
@@ -172,9 +177,10 @@
     }
   }
 }
-    
+Vue.createApp(Counter).mount('#counter')  
 
 Vue.createApp(VM).mount('.container')
+
 
 
 
